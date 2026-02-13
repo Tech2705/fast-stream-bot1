@@ -13,7 +13,7 @@ import (
 	repo "github.com/biisal/fast-stream-bot/internal/database/sqlite/sqlc"
 	rs "github.com/biisal/fast-stream-bot/internal/redis"
 	"github.com/biisal/fast-stream-bot/internal/types"
-	sqlite "modernc.org/sqlite"
+	"modernc.org/sqlite"
 
 	"github.com/gotd/td/tg"
 )
@@ -72,7 +72,7 @@ func (s *svc) CreateUser(ctx context.Context, params repo.CreateUserParams) (*re
 	if err != nil {
 		var sqliteErr *sqlite.Error
 		if errors.As(err, &sqliteErr) {
-			if sqliteErr.Code() == 2067 { // SQLITE_CONSTRAINT_UNIQUE
+			if sqliteErr.Code() == 2067 {
 				return nil, types.ErrorDuplicate
 			}
 		}
